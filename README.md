@@ -1,30 +1,24 @@
-# mwtest
-Building a MediaWiki bot in Lua
+Viviane the Bot
+===
 
-## My environment
-- Windows 7 x64
-- ZeroBrane + LuaDist
-- Lua 5.1.5
+## 必需
+* Microsoft Windows
+* 酷 Q
+* [me.cqp.ishisashi.cqsocketapi.cpk](https://dl.bintray.com/mrhso/cqsocketapi/me.cqp.ishisashi.cqsocketapi.cpk)
 
-As there's no os specific calls or libraries used, I think it could also run well on Linux or Mac. Higher versions of Lua is not tested.
+## 设置（根据 AlexanderMisel 口述整理）
+### linky.lua
+* bad_patterns 是所有敏感词，可以使用 Lua 的模式匹配；
+* op_admins 是可以加黑、解黑、shutdown、startup 的管理员名单；
+* enabled_groups 是启用的群号；
+* welcome_test 是新成员的欢迎词，cq_at 表示 @ 那个人；
+* group_card 配置群名片规则；
+* dont_checkcard 配置不检查群名片的群组。
 
-## dykupdate
-- Set your clock with an internet server (UTC+8)
-- Set up your Lua environment and install the dependencies.
-- The DYK update code has to run by an admin account (as T:Dyk is cascade protected)
+### reply_dicts.lua
+* replylist 匹配前面的模式即回复；
+* cmd_replylist 是 /xxx 的回复；
+* newbie_reply 是 /newbie 的随机回复。
 
-## linky
-This is a Lua version of linky for QQ using [CoolQ Socket API](https://github.com/mrhso/cqsocketapi). CoolQ and your client communicates using UDP sockets. Timerwheel is used for sending ClientHello every 5 minutes. Lua-iconv is used for encoding and decoding between GB18030 and UTF-8.
-- linky.lua (base QQ bot)
-- feed_service.lua (interacts with linky, send feed contents)
-- science_data.lua (science articles, no interactions, just write to file)
-
-### Patch to copas.lua
-As copas only has `addthread` but no `removethread`, if some of our requests are irresponsive for a long time, copas will never finish. Then we won't have a clean copas for a second run. The following `removeall` function could be added to simply removing any threads.
-```lua
-function copas.removeall()
-  _reading = newset()
-  _writing = newset()
-  _sleeping.times = {}
-end
-```
+## 运行
+运行 run_linky.bat 即可启动机器人。
